@@ -1,0 +1,17 @@
+/**/.gitignore
+!/.gitignore
+/**/nbproject
+/**/.mvn
+/**/readme.md
+/**/.gitkeep
+/**/nb-configuration.xml
+/**/target
+/**/.classpath
+/**/.factorypath
+/**/.project
+/**/.HELP.md
+/**/mvnw
+/**/mvnw.cmd
+/**/.dockerignore
+/**/docker
+/**/nbactions.xml

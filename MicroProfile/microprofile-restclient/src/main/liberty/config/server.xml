@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="microprofile-restclient">
+
+    <featureManager>
+        <feature>microProfile-3.3</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint"
+                  httpPort="9080"
+                  httpsPort="9443"/>
+
+    <webApplication location="microprofile-restclient.war" contextRoot="/">
+        <classloader apiTypeVisibility="+third-party" />
+    </webApplication>
+    <mpMetrics authentication="false"/>
+    
+    <ssl id="defaultSSLConfig" keyStoreRef="defaultKeyStore" trustStoreRef="jdkTrustStore"/>
+    <keyStore id="jdkTrustStore" location="${java.home}/lib/security/cacerts" password="changeit"/>
+
+</server>
