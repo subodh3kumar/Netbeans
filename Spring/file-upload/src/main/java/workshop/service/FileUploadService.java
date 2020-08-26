@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -18,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import lombok.extern.slf4j.Slf4j;
 import workshop.entity.UserEntity;
@@ -48,16 +49,25 @@ public class FileUploadService {
     private Path write(MultipartFile multipartFile) {
         log.info("creating a temp file");
         Path path = null;
+        BufferedOutputStream outputStream = null;
         try {
             byte[] bytes = multipartFile.getBytes();
             String fileName = multipartFile.getOriginalFilename();
             log.info("file name: {}", fileName);
             path = Paths.get(localDirectory + fileName);
-            BufferedOutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(path));
+            outputStream = new BufferedOutputStream(Files.newOutputStream(path));
             outputStream.write(bytes);
             outputStream.close();
         } catch (IOException e) {
             log.error("exception occurred while file creation", e);
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(FileUploadService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         log.info("file created sucessfully: {}", Files.exists(path));
         return path;
@@ -91,7 +101,9 @@ public class FileUploadService {
     @Async
     public int save(List<User> users) {
         log.info("saving user entities");
-        List<UserEntity> entities = users.stream().map(this::convert).collect(Collectors.toList());
+        List<UserEntity> entities = users.stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
         entities = repository.saveAll(entities);
         return entities.size();
     }

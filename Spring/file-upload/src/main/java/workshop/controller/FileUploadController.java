@@ -30,6 +30,7 @@ public class FileUploadController {
 
         List<User> users = new ArrayList<>();
         for (MultipartFile file : files) {
+            log.info("file name: {}", file.getOriginalFilename());
             List<User> list = service.getUsers(file);
             users.addAll(list);
         }

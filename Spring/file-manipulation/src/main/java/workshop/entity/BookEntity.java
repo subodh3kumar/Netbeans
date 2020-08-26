@@ -1,5 +1,6 @@
 package workshop.entity;
 
+import java.io.Serializable;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "books")
-public class BookEntity {
+public class BookEntity implements Serializable {
 
     @Id
     @Column(name = "book_id")
@@ -33,5 +34,4 @@ public class BookEntity {
 
     @Column(name = "isbn")
     private String isbn;
-
 }

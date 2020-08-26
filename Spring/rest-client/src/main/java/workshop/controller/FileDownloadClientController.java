@@ -6,28 +6,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.*;
-import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RequestCallback;
-import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import workshop.model.Payload;
 
-import javax.print.attribute.standard.Media;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -42,7 +36,6 @@ public class FileDownloadClientController {
 
     @Value("${local.directory}")
     private String localDirectory;
-
 
     @GetMapping("/v1/download")
     public String largeFileDownloadV1() throws IOException {
@@ -69,7 +62,6 @@ public class FileDownloadClientController {
         Files.write(Paths.get(absolutePath), response.getBody());
         return Files.exists(Paths.get(absolutePath)) == true ? "file downloaded" : "file not downloaded";
     }
-
 
     @GetMapping("/v2/download")
     public String largeFileDownloadV2() {
@@ -108,7 +100,6 @@ public class FileDownloadClientController {
         return headersMono.block();
     }
 
-
     @GetMapping("/v3/download")
     public String largeFileDownloadV3() {
         log.info("largeFileDownloadV3() method called");
@@ -118,19 +109,17 @@ public class FileDownloadClientController {
         Payload payload = new Payload();
         payload.setFileDirectory("C:/Development/Files/Input/algs4-data/");
         payload.setFileName("largeEWD.txt");
-        
-        RequestCallback requestCallback = this::doWithRequest;
-        requestCallback = restTemplate.httpEntityCallback(payload);
+
+        RequestCallback requestCallback = restTemplate.httpEntityCallback(payload);
 
         Path path = restTemplate.execute(url, HttpMethod.POST, requestCallback, this::extractData);
 
-        String fileName = path.getFileName().toString();
-        log.info("File name: " + fileName);
+        String fileName = null;
+        if (path != null) {
+            fileName = path.getFileName().toString();
+        }
+        log.info("File name: {}", fileName);
         return Files.exists(path) == true ? "file downloaded" : "file not downloaded";
-    }
-
-    private void doWithRequest(ClientHttpRequest request) {
-        request.getHeaders().setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
     }
 
     private Path extractData(ClientHttpResponse response) throws IOException {
