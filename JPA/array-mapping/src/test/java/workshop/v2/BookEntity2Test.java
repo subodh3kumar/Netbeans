@@ -14,7 +14,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import workshop.v1.BookEntity1;
 
 /**
  * @author Subodh Kumar
@@ -48,11 +47,11 @@ public class BookEntity2Test {
         try {
             transaction.begin();
 
-            BookEntity2 book1 = new BookEntity2();
-            book1.setTitle("Programming");
-            book1.setTopics(new String[]{"Java", "Python", "JavaScript"});
+            BookEntity2 entity = new BookEntity2();
+            entity.setTitle("Programming");
+            entity.setTopics(new String[]{"Java", "Python", "JavaScript"});
 
-            entityManager.persist(book1);
+            entityManager.persist(entity);
             transaction.commit();
 
             log.info("entity persist successfully");
@@ -79,7 +78,7 @@ public class BookEntity2Test {
             TypedQuery<BookEntity2> typedQuery = entityManager.createQuery(query, BookEntity2.class);
             typedQuery.setParameter("topics", new String[]{"Java", "Python", "JavaScript"});
 
-            List<BookEntity2> books = typedQuery.getResultList();
+            var books = typedQuery.getResultList();
 
             Assertions.assertEquals(1, books.size());
             books.forEach(book -> log.info(book.toString()));
