@@ -47,11 +47,11 @@ public class BookEntity1Test {
         try {
             transaction.begin();
 
-            BookEntity1 book1 = new BookEntity1();
-            book1.setTitle("Programming");
-            book1.setTopics(new String[]{"Java", "Python", "JavaScript"});
+            BookEntity1 entity = new BookEntity1();
+            entity.setTitle("Programming");
+            entity.setTopics(new String[]{"Java", "Python", "JavaScript"});
 
-            entityManager.persist(book1);
+            entityManager.persist(entity);
             transaction.commit();
 
             log.info("entity persist successfully");
@@ -77,7 +77,7 @@ public class BookEntity1Test {
             String query = "SELECT b FROM BookEntity1 b";
             TypedQuery<BookEntity1> typedQuery = entityManager.createQuery(query, BookEntity1.class);
 
-            List<BookEntity1> books = typedQuery.getResultList();
+            var books = typedQuery.getResultList();
 
             Assertions.assertEquals(1, books.size());
             books.forEach(book -> log.info(book.toString()));
