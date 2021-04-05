@@ -1,0 +1,39 @@
+
+sql script
+-------------
+DROP TABLE IF EXISTS MOVIE; 
+CREATE TABLE MOVIE (ID SERIAL PRIMARY KEY, TITLE VARCHAR(100), DIRECTOR VARCHAR(100), COUNTRY VARCHAR(10), DESCRIPTION VARCHAR(500));
+SELECT * FROM MOVIE;
+
+JSON value
+-------------
+{
+	"title":"Sholay",
+	"description":"Sholay is a 1975 Indian action-adventure film written by Salim–Javed, directed by Ramesh Sippy, and produced by his father G. P. Sippy. The film is about two criminals, Veeru and Jai (played by Dharmendra and Amitabh Bachchan respectively), hired by a retired police officer (Sanjeev Kumar) to capture the ruthless dacoit Gabbar Singh (Amjad Khan)",
+	"director":"Ramesh Sippy",
+	"country":"IND"
+}
+
+
+{
+	"title":"Padosan",
+	"description":"Padosan is a 1968 Indian Hindi-language musical comedy film directed by Jyoti Swaroop and produced by Mehmood, N. C. Sippy and written by Rajendra Krishan.",
+	"director":"Jyoti Swaroop",
+	"country":"IND"
+}
+
+
+{
+	"title":"Iron Man",
+	"description":"ron Man is a 2008 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Paramount Pictures. it is the first film in the Marvel Cinematic Universe (MCU)",
+	"director":"Jon Favreau",
+	"country":"US"
+}
+
+
+{
+	"title":"Spider-Man",
+	"description":"Spider-Man is a 2002 American superhero film based on the Marvel Comics character of the same name. Directed by Sam Raimi from a screenplay by David Koepp, it is the first installment in the Spider-Man trilogy.",
+	"director":"Sam Raimi",
+	"country":"US"
+}
