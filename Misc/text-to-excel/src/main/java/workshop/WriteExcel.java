@@ -15,16 +15,21 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * @author Subodh Kumar
  */
-public class ConvertTextToExcelFile {
+public class WriteExcel {
 
     private static final String EMP_TEXT_FILE = "src/main/resources/input/employee.txt";
     private static final String EMP_EXCEL_FILE = "src/main/resources/output/employee.xlsx";
 
     public static void main(String[] args) {
+
+        writeExcelUsingWorkbook();
+    }
+
+    private static void writeExcelUsingWorkbook() {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(EMP_TEXT_FILE))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(EMP_TEXT_FILE))) {
             Files.deleteIfExists(Paths.get(EMP_EXCEL_FILE));
             System.out.println("previous file deleted");
             Thread.sleep(2000);
@@ -45,7 +50,7 @@ public class ConvertTextToExcelFile {
             e.printStackTrace();
         }
 
-        try (FileOutputStream output = new FileOutputStream(EMP_EXCEL_FILE)) {
+        try ( FileOutputStream output = new FileOutputStream(EMP_EXCEL_FILE)) {
             workbook.write(output);
             workbook.close();
         } catch (IOException e) {

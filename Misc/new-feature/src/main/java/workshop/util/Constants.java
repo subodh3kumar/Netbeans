@@ -1,6 +1,6 @@
 package workshop.util;
 
-public interface Constants {
+public final class Constants {
 
     public static final String SUNDAY = "SUNDAY";
     public static final String MONDAY = "MONDAY";

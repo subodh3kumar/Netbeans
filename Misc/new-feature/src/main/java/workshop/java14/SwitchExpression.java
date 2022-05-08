@@ -1,10 +1,9 @@
 package workshop.java14;
 
-import workshop.util.Constants;
 import workshop.util.Month;
+import static workshop.util.Constants.*;
 
-public class SwitchExpression implements Constants {
-
+public class SwitchExpression {
 
     public int traditionalSwitch(String day) {
         int result = 0;
@@ -30,7 +29,7 @@ public class SwitchExpression implements Constants {
         System.out.println("result: " + result);
         return result;
     }
-    
+
     public int traditionalSwitchWithoutBreak(int num) {
         int result = 0;
         switch (num) {
@@ -50,11 +49,16 @@ public class SwitchExpression implements Constants {
 
     public int newSwitchStatement(String day) {
         int result = switch (day) {
-            case MONDAY, FRIDAY, SUNDAY -> 6;
-            case TUESDAY -> 7;
-            case THURSDAY, SATURDAY -> 8;
-            case WEDNESDAY -> 9;
-            default -> throw new IllegalStateException("Unexpected value");
+            case MONDAY, FRIDAY, SUNDAY ->
+                6;
+            case TUESDAY ->
+                7;
+            case THURSDAY, SATURDAY ->
+                8;
+            case WEDNESDAY ->
+                9;
+            default ->
+                throw new IllegalStateException("Unexpected value");
         };
         System.out.println("result: " + result);
         return result;
@@ -102,4 +106,3 @@ public class SwitchExpression implements Constants {
         return result;
     }
 }
-

@@ -7,7 +7,7 @@ import io.quarkus.runtime.annotations.QuarkusMain;
  * @author Subodh Kumar
  */
 @QuarkusMain
-public class MainApplication implements QuarkusApplication{
+public class MainApplication implements QuarkusApplication {
 
     @Override
     public int run(String... args) throws Exception {
